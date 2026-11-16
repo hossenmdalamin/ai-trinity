@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10131d">
+<title>AI Trinity — Three minds. One answer.</title>
+<style>
+:root{--bg:#0b0e16;--panel:#121725;--panel2:#171e2e;--line:#273149;--text:#eef2ff;--muted:#9ba7c0;--accent:#8b7cff;--green:#50d6a0}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -20%,#25204a 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}.sidebar{background:#0e1320;border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:22px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:.4px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#8b7cff,#47c6d9);display:grid;place-items:center;color:#fff;font-weight:900}
+.tagline{color:var(--muted);font-size:11px;letter-spacing:1.5px;margin-top:-18px;margin-left:49px}
+.new{border:1px solid #4b438a;background:#211e3c;color:#fff;border-radius:12px;padding:12px;text-align:left;font-weight:650;cursor:pointer}
+.side-label{font-size:11px;color:#77839e;text-transform:uppercase;letter-spacing:1.2px}.history{color:var(--muted);font-size:13px}.side-bottom{margin-top:auto;border:1px solid var(--line);border-radius:12px;padding:12px;color:var(--muted);font-size:12px}
+main{display:flex;flex-direction:column;min-width:0}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.top strong{font-size:14px}.demo{font-size:11px;color:#ffd58b;background:#392d1c;border:1px solid #66502d;border-radius:30px;padding:5px 10px}
+.content{width:min(900px,100%);margin:0 auto;padding:34px 24px 24px;display:flex;flex-direction:column;flex:1}
+.hero{text-align:center;margin:20px 0 30px}.hero h1{font-size:clamp(28px,5vw,42px);line-height:1.1;margin:0 0 10px;letter-spacing:-1.5px}.gradient{background:linear-gradient(90deg,#a69aff,#6dd6e8);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);margin:0}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 22px}.model{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;align-items:center;gap:10px}.orb{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-weight:800}.gpt{background:#193b35;color:#77e6c1}.claude{background:#493024;color:#ffb58c}.gemini{background:#26375a;color:#9fc2ff}.model b{display:block;font-size:13px}.model small{color:var(--muted);font-size:11px}
+.mode{display:flex;gap:8px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}.mode button{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:30px;padding:9px 15px;cursor:pointer}.mode button.active{background:#292447;border-color:#7567d8;color:#fff}
+.chat{flex:1;min-height:230px;border:1px solid var(--line);border-radius:18px;background:rgba(18,23,37,.78);padding:20px;display:flex;flex-direction:column;gap:14px}
+.empty{text-align:center;margin:auto;color:var(--muted);max-width:420px}.empty .symbol{font-size:30px;margin-bottom:8px}.empty b{display:block;color:var(--text);font-size:16px;margin-bottom:4px}
+.msg{max-width:85%;padding:12px 15px;border-radius:15px;white-space:pre-wrap;overflow-wrap:anywhere}.user{align-self:flex-end;background:#39335f;border:1px solid #5d53a0}.notice{align-self:center;max-width:100%;text-align:center;color:#f1cf8b;background:#30291e;border:1px solid #55472d;font-size:12px}
+.composer{margin-top:14px;border:1px solid #39435d;background:#151c2c;border-radius:16px;padding:12px}.composer textarea{width:100%;resize:vertical;min-height:65px;max-height:180px;border:0;outline:0;background:transparent;color:var(--text);font:inherit;padding:5px}.compose-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px}.hint{font-size:11px;color:var(--muted)}.send{background:linear-gradient(135deg,#8b7cff,#5a9be8);border:0;color:#fff;border-radius:11px;padding:10px 17px;font-weight:700;cursor:pointer}.send:disabled{opacity:.45;cursor:not-allowed}
+.footer{text-align:center;color:#65718b;font-size:11px;padding:16px}
+@media(max-width:700px){.app{grid-template-columns:1fr}.sidebar{display:none}.top{height:60px;padding:0 16px}.content{padding:24px 14px 14px}.models{gap:7px}.model{padding:10px 7px;gap:6px;flex-direction:column;text-align:center}.orb{width:30px;height:30px}.model b{font-size:11px}.model small{font-size:9px}.chat{min-height:260px;padding:13px}.hero{margin:15px 0 22px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div><div class="brand"><div class="logo">T</div> AI TRINITY</div><div class="tagline">THREE MINDS. ONE ANSWER.</div></div>
+  <button class="new" id="newChat">＋ &nbsp; New conversation</button>
+  <div class="side-label">Workspace</div>
+  <div class="history">✦ &nbsp; AI Discussion Room</div>
+  <div class="history">◷ &nbsp; Conversation history</div>
+  <div class="side-bottom">Prototype mode<br><br>AI providers are not connected yet. API integration will be added in the next step.</div>
+</aside>
+<main>
+  <header class="top"><strong>AI Discussion Room</strong><span class="demo">PROTOTYPE · DEMO MODE</span></header>
+  <section class="content">
+    <div class="hero"><h1>Three minds.<br><span class="gradient">One better answer.</span></h1><p>Bring ChatGPT, Claude and Gemini together.</p></div>
+    <div class="models">
+      <div class="model"><div class="orb gpt">◎</div><div><b>ChatGPT</b><small>OpenAI</small></div></div>
+      <div class="model"><div class="orb claude">✳</div><div><b>Claude</b><small>Anthropic</small></div></div>
+      <div class="model"><div class="orb gemini">✦</div><div><b>Gemini</b><small>Google</small></div></div>
+    </div>
+    <div class="mode"><button class="active" type="button">Discussion mode</button><button type="button" id="compare">Compare mode · coming soon</button></div>
+    <div class="chat" id="chat">
+      <div class="empty" id="empty"><div class="symbol">✧</div><b>Your AI roundtable starts here</b><span>Write a question below. This prototype shows the interface; live AI replies will be enabled after secure API setup.</span></div>
+    </div>
+    <div class="composer">
+      <textarea id="prompt" placeholder="Ask a question for all three AI assistants..." aria-label="Your question"></textarea>
+      <div class="compose-bottom"><span class="hint">Enter to send · Shift + Enter for a new line</span><button class="send" id="send">Send question ↑</button></div>
+    </div>
+    <div class="footer">AI Trinity · Independent AI providers · Your API keys stay on the server</div>
+  </section>
+</main>
+</div>
+<script>
+const promptBox=document.getElementById('prompt'), chat=document.getElementById('chat'), empty=document.getElementById('empty'), send=document.getElementById('send');
+function submitPrompt(){const value=promptBox.value.trim();if(!value)return;if(empty)empty.remove();const bubble=document.createElement('div');bubble.className='msg user';bubble.textContent=value;chat.appendChild(bubble);const note=document.createElement('div');note.className='msg notice';note.textContent='Demo mode: your message is displayed, but ChatGPT, Claude and Gemini are not connected yet. We will connect them through a secure backend in the next steps.';chat.appendChild(note);promptBox.value='';chat.scrollTop=chat.scrollHeight;}
+send.addEventListener('click',submitPrompt);
+promptBox.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submitPrompt();}});
+document.getElementById('newChat').addEventListener('click',()=>{chat.innerHTML='<div class="empty" id="empty"><div class="symbol">✧</div><b>Your AI roundtable starts here</b><span>Write a question below. Live AI replies will be enabled after secure API setup.</span></div>';});
+document.getElementById('compare').addEventListener('click',()=>alert('Compare mode will be added after the AI connections are ready.'));
+</script>
+</body>
+</html>
